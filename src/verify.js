@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken')
 const { getFirestore, getDoc, doc } = require('firebase/firestore')
 
-const db = getFirestore()
+const init = require('./init_firebase')
 
-module.exports = async (jwtStr) => {
+module.exports = async (jwtStr, firebaseconfig) => {
+  init(firebaseconfig)
+  const db = getFirestore()
+
   const configPublic = await getDoc(doc(db, 'config/public')).then((s) =>
     s.data()
   )
