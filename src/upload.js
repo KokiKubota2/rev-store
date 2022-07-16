@@ -6,8 +6,8 @@ const { getStorage, ref, uploadBytes } = require('firebase/storage')
 const storage = getStorage()
 const FILE_EXT = '.jpg'
 
-module.exports = async (metadata, blob, endpoint) => {
-  const endpoint = `${endpoint}/api/rev-store/sign`
+module.exports = async (metadata, blob, url) => {
+  const endpoint = `${url}/api/rev-store/sign`
 
   const fileName = `${uuidv4()}${FILE_EXT}`
   const path = `images/${fileName}`
