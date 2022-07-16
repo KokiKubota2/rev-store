@@ -7,15 +7,15 @@ const init = require('./init_firebase')
 
 const FILE_EXT = '.jpg'
 
-module.exports = async (metadata, blob, url, firebaseconfig) => {
+module.exports = async (metadata, blob, url, firebaseConfig) => {
   const endpoint = `${url}/api/rev-store/sign`
 
   const fileName = `${uuidv4()}${FILE_EXT}`
   const path = `images/${fileName}`
 
   try {
-    init(firebaseconfig)
-    const storage = getStorage()
+    const app = init(firebaseConfig)
+    const storage = getStorage(app)
 
     const res = await axios.post(endpoint, { metadata: { ...metadata, path } })
 

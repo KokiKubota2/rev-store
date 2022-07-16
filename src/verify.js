@@ -3,9 +3,9 @@ const { getFirestore, getDoc, doc } = require('firebase/firestore')
 
 const init = require('./init_firebase')
 
-module.exports = async (jwtStr, firebaseconfig) => {
-  init(firebaseconfig)
-  const db = getFirestore()
+module.exports = async (jwtStr, firebaseConfig) => {
+  const app = init(firebaseConfig)
+  const db = getFirestore(app)
 
   const configPublic = await getDoc(doc(db, 'config/public')).then((s) =>
     s.data()
