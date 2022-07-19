@@ -1,26 +1,18 @@
+const axios = require('axios')
 const jwt = require('jsonwebtoken')
-const { getFirestore, getDoc, doc } = require('firebase/firestore')
-const { getApps } = require('firebase/app')
 
-const init = require('./init_firebase')
+module.exports = async (jwtStr, endpoint) => {
+  if (!jwtStr) throw new Error('jwtStr is invalid')
+  if (!endpoint) throw new Error('endpoint is invalid')
 
-module.exports = async (jwtStr, firebaseConfig) => {
-  init(firebaseConfig)
-  const app = getApps()
-  console.log('verify.js', app)
-
-  const db = getFirestore()
-
-  const configPublic = await getDoc(doc(db, 'config/public')).then((s) =>
-    s.data()
-  )
-
-  const { key } = configPublic.api
+  const res = await axios.get(`${endpoint}/api/rev-store/get-public-key`)
 
   try {
-    const decoded = await jwt.verify(jwtStr, Buffer.from(key, 'base64'), {
-      algorithms: ['RS256'],
-    })
+    const decoded = await jwt.verify(
+      jwtStr,
+      Buffer.from(res.data.publicKey, 'base64'),
+      { algorithms: ['RS256'] }
+    )
 
     return decoded
   } catch (e) {
