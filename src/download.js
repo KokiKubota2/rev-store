@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const verify = require('./verify')
 
-module.exports = async (jwtStr, expires, endpoint) => {
+module.exports = async (jwtStr, endpoint) => {
   if (!jwtStr) throw new Error('jwtStr is invalid')
   if (!endpoint) throw new Error('endpoint is invalid')
 
@@ -12,7 +12,6 @@ module.exports = async (jwtStr, expires, endpoint) => {
 
   const res = await axios.post(`${endpoint}/api/rev-store/download`, {
     path: metadata.path,
-    expires,
   })
 
   return res.data.downloadUrl
