@@ -11,14 +11,10 @@ module.exports = async (metadata, dataUrl, endpoint) => {
   const path = `rev-store/${fileName}`
 
   try {
-    const res = await axios.post(`${endpoint}/api/rev-store/sign`, {
-      metadata: { ...metadata, path },
-    })
-
-    await axios.post(`${endpoint}/api/rev-store/upload`, {
+    const res = await axios.post(`${endpoint}/api/rev-store/upload`, {
+      metadata,
       path,
       dataUrl,
-      metadata,
     })
 
     return res.data.jwt
