@@ -5,7 +5,7 @@ module.exports = async (jwtStr, endpoint) => {
   if (!jwtStr) throw new Error('jwtStr is invalid')
   if (!endpoint) throw new Error('endpoint is invalid')
 
-  const res = await axios.get(`${endpoint}/api/rev-store/get-public-key`)
+  const res = await axios.get(`${endpoint}/api/rev-store/public-key`)
 
   try {
     const decoded = await jwt.verify(
