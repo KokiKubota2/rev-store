@@ -1,7 +1,7 @@
 {
   "name": "rev-store",
   "main": "index.js",
-  "version": "1.3.5",
+  "version": "1.5.0",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
